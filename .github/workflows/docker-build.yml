@@ -1,3 +1,4 @@
+```yaml
 name: Docker Build
 
 on:
@@ -20,4 +21,15 @@ jobs:
         run: |
           docker build \
             --build-arg BUILD_ID=${{ github.sha }} \
-            -t simple-nginx-app:${{ github.sha }} .
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/simple-nginx-app:${{ github.sha }} .
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/simple-nginx-app:${{ github.sha }}
+```
