@@ -1,7 +1,7 @@
-```yaml
+
 name: Docker Build
 
-on:
+"on":
   push:
     branches:
       - main
@@ -21,12 +21,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Docker image
-        run: |
-          docker build \
-            --build-arg BUILD_ID=${{ github.sha }} \
-            -t ${{ secrets.DOCKERHUB_USERNAME }}/simple-nginx-app:${{ github.sha }} .
+        run: docker build --build-arg BUILD_ID=${{ github.sha }} -t ${{ secrets.DOCKERHUB_USERNAME }}/simple-nginx-app:${{ github.sha }} .
 
       - name: Push Docker image
-        run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/simple-nginx-app:${{ github.sha }}
-```
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/simple-nginx-app:${{ github.sha }}
