@@ -14,7 +14,7 @@ job "simple-nginx" {
       driver = "docker"
 
       config {
-        image = "YOUR_DOCKERHUB_USERNAME/simple-nginx-app:latest"
+        image = "Jayasurya0014/simple-nginx-app:latest"
         ports = ["http"]
       }
 
